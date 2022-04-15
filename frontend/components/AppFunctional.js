@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
+import axios from 'axios';
 
 export default function AppFunctional(props) {
 
@@ -7,7 +8,8 @@ export default function AppFunctional(props) {
     coordinateY: 2,
     totalMoves: 0,
     board: ["", "", "", "", "", "", "", "", ""],
-    message: ""
+    message: "",
+    email: ""
   })
 
   const handleUp = () => {
@@ -76,11 +78,12 @@ export default function AppFunctional(props) {
 
   const reset = () => {
     setState({
-      ... state,
+      ...state,
       coordinateX: 2,
       coordinateY: 2,
       totalMoves: 0,
-      message: ""
+      message: "",
+      email: "",
     })
   }
 
@@ -112,6 +115,33 @@ export default function AppFunctional(props) {
     if (state.coordinateX === 3 && state.coordinateY === 3 && index === 8) {
       return true;
     }
+  }
+
+  const emailChangeHandler = (event) => {
+    setState({
+      ...state,
+      email: event.target.value
+    })
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("We are sane");
+    const payload = {
+      "x": state.coordinateX,
+      "y": state.coordinateY,
+      "steps": state.totalMoves,
+      "email": state.email
+    };
+    axios.post('http://localhost:9000/api/result', payload)
+      .then(res => {
+        console.log(res.data.message);
+        setState({
+          ...state,
+          message: res.data.message,
+          email: ""
+        })
+      })
   }
 
   return (
@@ -148,8 +178,15 @@ export default function AppFunctional(props) {
           <button id="down" onClick={handleDown}>DOWN</button>
           <button id="reset" onClick={reset}>reset</button>
         </div>
-        <form>
-          <input id="email" type="email" placeholder="type email"></input>
+        <form onSubmit={handleSubmit}>
+        <input 
+            id="email" 
+            type="email" 
+            placeholder="type email"
+            value={state.email}
+            onChange={emailChangeHandler}
+            >
+          </input>
           <input id="submit" type="submit"></input>
         </form>
     </div>
