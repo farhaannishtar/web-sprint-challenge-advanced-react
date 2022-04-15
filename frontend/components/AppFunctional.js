@@ -142,13 +142,26 @@ export default function AppFunctional(props) {
           email: ""
         })
       })
+      .catch(err => {
+        console.log("HI");
+        setState({
+          ...state,
+          message: "Ouch: email is required",
+          email: ""
+        })
+      })
   }
 
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
           <h3 id="coordinates">Coordinates ({state.coordinateX}, {state.coordinateY})</h3>
-          <h3 id="steps">You moved {state.totalMoves} times</h3>
+          {
+            (state.totalMoves === 1)
+              ? <h3 id="steps">You moved {state.totalMoves} time</h3>
+              : <h3 id="steps">You moved {state.totalMoves} times</h3>
+          }
+          {/* <h3 id="steps">You moved {state.totalMoves} times</h3> */}
         </div>
         <div id="grid">
           {state.board.map((value, index) => {

@@ -131,10 +131,22 @@ export default class AppClass extends React.Component {
     };
     axios.post('http://localhost:9000/api/result', payload)
       .then(res => {
+        console.log("Then catch");
+        console.log(res);
         console.log(res.data.message);
         this.setState({
           ...this.state,
-          message: res.data.message
+          message: res.data.message,
+          email: ""
+        })
+      })
+      .catch(err => {
+        console.log("Error catch");
+        console.log({err});
+        this.setState({
+          ...this.state,
+          message: err.response.data.message,
+          email: ""
         })
       })
   }
@@ -145,7 +157,12 @@ export default class AppClass extends React.Component {
       <div id="wrapper" className={className}>
         <div className="info">
           <h3 id="coordinates">Coordinates ({this.state.coordinateX}, {this.state.coordinateY})</h3>
-          <h3 id="steps">You moved {this.state.totalMoves} times</h3>
+          {
+            (this.state.totalMoves === 1)
+              ? <h3 id="steps">You moved {this.state.totalMoves} time</h3>
+              : <h3 id="steps">You moved {this.state.totalMoves} times</h3>
+          }
+          {/* <h3 id="steps">You moved {this.state.totalMoves} times</h3> */}
         </div>
         <div id="grid">
           {this.state.board.map((value, index) => {
