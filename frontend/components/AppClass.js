@@ -19,7 +19,8 @@ export default class AppClass extends React.Component {
     } else {
      this.setState({
         ... this.state,
-       coordinateY: this.state.coordinateY - 1
+       coordinateY: this.state.coordinateY - 1,
+       totalMoves: this.state.totalMoves + 1
       });
     }
   }
@@ -33,7 +34,8 @@ export default class AppClass extends React.Component {
     } else {
      this.setState({
         ... this.state,
-       coordinateY: this.state.coordinateY + 1
+       coordinateY: this.state.coordinateY + 1,
+       totalMoves: this.state.totalMoves + 1
       });
     }
   }
@@ -47,7 +49,8 @@ export default class AppClass extends React.Component {
     } else {
      this.setState({
         ... this.state,
-       coordinateX: this.state.coordinateX + 1
+       coordinateX: this.state.coordinateX + 1,
+       totalMoves: this.state.totalMoves + 1
       });
     }
   }
@@ -61,9 +64,20 @@ export default class AppClass extends React.Component {
     } else {
      this.setState({
         ... this.state,
-       coordinateX: this.state.coordinateX - 1
+       coordinateX: this.state.coordinateX - 1,
+       totalMoves: this.state.totalMoves + 1
       });
     }
+  }
+
+  reset = () => {
+    this.setState({
+      ... this.state,
+      coordinateX: 2,
+      coordinateY: 2,
+      totalMoves: 0,
+      message: ""
+    })
   }
 
   mapCoordinatesWithPosition = (index) => {
@@ -130,7 +144,7 @@ export default class AppClass extends React.Component {
           <button id="up" onClick={this.handleUp}>UP</button>
           <button id="right" onClick={this.handleRight}>RIGHT</button>
           <button id="down" onClick={this.handleDown}>DOWN</button>
-          <button id="reset">reset</button>
+          <button id="reset" onClick={this.reset}>reset</button>
         </div>
         <form>
           <input id="email" type="email" placeholder="type email"></input>

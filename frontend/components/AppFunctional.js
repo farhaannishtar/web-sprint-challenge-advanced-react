@@ -1,37 +1,157 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 export default function AppFunctional(props) {
+
+  const [state, setState] = useState({
+    coordinateX: 2,
+    coordinateY: 2,
+    totalMoves: 0,
+    board: ["", "", "", "", "", "", "", "", ""],
+    message: ""
+  })
+
+  const handleUp = () => {
+    console.log("We are going up");
+    if (state.coordinateY === 1) {
+      setState({
+        ... state,
+        message: "You can't go up"
+      })
+    } else {
+     setState({
+        ... state,
+       coordinateY: state.coordinateY - 1,
+       totalMoves: state.totalMoves + 1
+      });
+    }
+  }
+
+  const handleDown = () => {
+    console.log("We are going down");
+    if (state.coordinateY === 3) {
+      setState({
+        ...state,
+        message: "You can't go down"
+      })
+    } else {
+     setState({
+        ...state,
+       coordinateY: state.coordinateY + 1,
+       totalMoves: state.totalMoves + 1
+      });
+    }
+  }
+
+  const handleRight = () => {
+    console.log("We are going right");
+    if (state.coordinateX === 3) {
+      setState({
+        ...state,
+        message: "You can't go right"
+      })
+    } else {
+     setState({
+        ... state,
+       coordinateX: state.coordinateX + 1,
+       totalMoves: state.totalMoves + 1
+      });
+    }
+  }
+
+  const handleLeft = () => {
+    console.log("We are going left");
+    if (state.coordinateX === 1) {
+      setState({
+        ...state,
+        message: "You can't go left"
+      })
+    } else {
+     setState({
+        ... state,
+       coordinateX: state.coordinateX - 1,
+       totalMoves: state.totalMoves + 1
+      });
+    }
+  }
+
+  const reset = () => {
+    setState({
+      ... state,
+      coordinateX: 2,
+      coordinateY: 2,
+      totalMoves: 0,
+      message: ""
+    })
+  }
+
+  const mapCoordinatesWithPosition = (index) => {
+    if (state.coordinateX === 1 && state.coordinateY === 1 && index === 0) {
+      return true;
+    }
+    if (state.coordinateX === 2 && state.coordinateY === 1 && index === 1) {
+      return true;
+    } 
+    if (state.coordinateX === 3 && state.coordinateY === 1 && index === 2) {
+      return true;
+    }
+    if (state.coordinateX === 1 && state.coordinateY === 2 && index === 3) {
+      return true;
+    }
+    if (state.coordinateX === 2 && state.coordinateY === 2 && index === 4) {
+      return true;
+    } 
+    if (state.coordinateX === 3 && state.coordinateY === 2 && index === 5) {
+      return true;
+    }
+    if (state.coordinateX === 1 && state.coordinateY === 3 && index === 6) {
+      return true;
+    }
+    if (state.coordinateX === 2 && state.coordinateY === 3 && index === 7) {
+      return true;
+    }
+    if (state.coordinateX === 3 && state.coordinateY === 3 && index === 8) {
+      return true;
+    }
+  }
+
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates (2, 2)</h3>
-        <h3 id="steps">You moved 0 times</h3>
-      </div>
-      <div id="grid">
-        <div className="square"></div>
-        <div className="square"></div>
-        <div className="square"></div>
-        <div className="square"></div>
-        <div className="square active">B</div>
-        <div className="square"></div>
-        <div className="square"></div>
-        <div className="square"></div>
-        <div className="square"></div>
-      </div>
-      <div className="info">
-        <h3 id="message"></h3>
-      </div>
-      <div id="keypad">
-        <button id="left">LEFT</button>
-        <button id="up">UP</button>
-        <button id="right">RIGHT</button>
-        <button id="down">DOWN</button>
-        <button id="reset">reset</button>
-      </div>
-      <form>
-        <input id="email" type="email" placeholder="type email"></input>
-        <input id="submit" type="submit"></input>
-      </form>
+          <h3 id="coordinates">Coordinates ({state.coordinateX}, {state.coordinateY})</h3>
+          <h3 id="steps">You moved {state.totalMoves} times</h3>
+        </div>
+        <div id="grid">
+          {state.board.map((value, index) => {
+            // If the value matches with the coordinates, 
+            // Set orange square for the div
+            if (mapCoordinatesWithPosition(index) === true) {
+              return ( 
+                <div key={index} className="square active">
+                  B
+                </div>
+              )
+            }
+            return ( 
+              <div key={index} className="square">
+                {value}
+              </div>
+            )
+          })}
+        </div>
+        <div className="info">
+          <h3 id="message">{state.message}</h3>
+        </div>
+        <div id="keypad">
+          <button id="left" onClick={handleLeft}>LEFT</button>
+          <button id="up" onClick={handleUp}>UP</button>
+          <button id="right" onClick={handleRight}>RIGHT</button>
+          <button id="down" onClick={handleDown}>DOWN</button>
+          <button id="reset" onClick={reset}>reset</button>
+        </div>
+        <form>
+          <input id="email" type="email" placeholder="type email"></input>
+          <input id="submit" type="submit"></input>
+        </form>
     </div>
   )
 }
