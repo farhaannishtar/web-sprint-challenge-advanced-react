@@ -143,7 +143,9 @@ export default function AppFunctional(props) {
       })
       .catch(err => {
         console.log("Error catch");
-        this.setState({
+        console.log({err});
+        console.log(err.response.data.message);
+        setState({
           ...state,
           message: err.response.data.message,
           email: ""
