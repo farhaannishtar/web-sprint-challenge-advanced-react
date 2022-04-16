@@ -132,8 +132,6 @@ export default class AppClass extends React.Component {
     axios.post('http://localhost:9000/api/result', payload)
       .then(res => {
         console.log("Then catch");
-        console.log(res);
-        console.log(res.data.message);
         this.setState({
           ...this.state,
           message: res.data.message,
@@ -142,7 +140,6 @@ export default class AppClass extends React.Component {
       })
       .catch(err => {
         console.log("Error catch");
-        console.log({err});
         this.setState({
           ...this.state,
           message: err.response.data.message,

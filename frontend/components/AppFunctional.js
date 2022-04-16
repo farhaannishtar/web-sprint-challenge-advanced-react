@@ -135,7 +135,6 @@ export default function AppFunctional(props) {
     };
     axios.post('http://localhost:9000/api/result', payload)
       .then(res => {
-        console.log(res.data.message);
         setState({
           ...state,
           message: res.data.message,
@@ -143,10 +142,10 @@ export default function AppFunctional(props) {
         })
       })
       .catch(err => {
-        console.log("HI");
-        setState({
+        console.log("Error catch");
+        this.setState({
           ...state,
-          message: "Ouch: email is required",
+          message: err.response.data.message,
           email: ""
         })
       })
