@@ -201,7 +201,7 @@ export default function AppFunctional(props) {
             onChange={emailChangeHandler}
             >
           </input>
-          <input data-testid="submit" id="submit" type="submit"></input>
+          <input id="submit" type="submit"></input>
         </form>
     </div>
   )

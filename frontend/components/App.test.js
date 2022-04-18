@@ -51,18 +51,18 @@ expect(resetButton).toBeTruthy();
 })
 
 // Check for typing of input field
-test('renders "Ouch: email must be a valid email" if invalid email is entered', async () => {
-  render(<AppFunctional/>)
-  const emailInput = screen.getByPlaceholderText('type email');
-  console.log("emailField", emailInput);
+// test('renders "Ouch: email must be a valid email" if invalid email is entered', async () => {
+//   render(<AppFunctional/>)
+//   const emailInput = screen.getByPlaceholderText('type email');
+//   console.log("emailField", emailInput);
 
-  userEvent.type(emailInput, "bad@email");
+//   userEvent.type(emailInput, "bad@email");
 
-  const submitInput = screen.getByTestId("submit");
-  console.log("submitInput", submitInput);
+//   const submitInput = screen.getByTestId("submit");
+//   console.log("submitInput", submitInput);
 
-  userEvent.click(submitInput);
+//   userEvent.click(submitInput);
 
-  const errorMessage = await screen.findByText(/Ouch: email must be a valid email/i);
-  expect(errorMessage).toBeInTheDocument();
-})
+//   const errorMessage = await screen.findByText(/Ouch: email must be a valid email/i);
+//   expect(errorMessage).toBeInTheDocument();
+// })
