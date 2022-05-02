@@ -62,7 +62,9 @@ test('renders "Ouch: email must be a valid email" if invalid email is entered', 
   // console.log("submitInput", submitInput);
 
   userEvent.click(submitInput);
-  screen.debug();
-  const errorMessage = await screen.findByText(/Ouch: email must be a valid email/i);
-  expect(errorMessage).toBeInTheDocument();
+  // screen.debug();
+  await waitFor(() => {
+    const errorMessage = screen.getByText(/Ouch: email must be a valid email/i);
+    expect(errorMessage).toBeInTheDocument();
+  })
 })
