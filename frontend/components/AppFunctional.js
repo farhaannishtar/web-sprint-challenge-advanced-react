@@ -13,7 +13,6 @@ export default function AppFunctional(props) {
   })
 
   const handleUp = () => {
-    console.log("We are going up");
     if (state.coordinateY === 1) {
       setState({
         ... state,
@@ -29,7 +28,6 @@ export default function AppFunctional(props) {
   }
 
   const handleDown = () => {
-    console.log("We are going down");
     if (state.coordinateY === 3) {
       setState({
         ...state,
@@ -45,7 +43,7 @@ export default function AppFunctional(props) {
   }
 
   const handleRight = () => {
-    console.log("We are going right");
+    // console.log("We are going right");
     if (state.coordinateX === 3) {
       setState({
         ...state,
@@ -61,7 +59,7 @@ export default function AppFunctional(props) {
   }
 
   const handleLeft = () => {
-    console.log("We are going left");
+    // console.log("We are going left");
     if (state.coordinateX === 1) {
       setState({
         ...state,
@@ -126,7 +124,7 @@ export default function AppFunctional(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("We are sane");
+    // console.log("We are sane");
     const payload = {
       "x": state.coordinateX,
       "y": state.coordinateY,
@@ -142,9 +140,9 @@ export default function AppFunctional(props) {
         })
       })
       .catch(err => {
-        console.log("Error catch");
-        console.log({err});
-        console.log(err.response.data.message);
+        // console.log("Error catch");
+        // console.log({err});
+        // console.log(err.response.data.message);
         setState({
           ...state,
           message: err.response.data.message,
@@ -201,7 +199,7 @@ export default function AppFunctional(props) {
             onChange={emailChangeHandler}
             >
           </input>
-          <input id="submit" type="submit"></input>
+          <input id="submit" data-testid="submit" type="submit"></input>
         </form>
     </div>
   )

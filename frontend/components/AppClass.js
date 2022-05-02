@@ -13,7 +13,7 @@ export default class AppClass extends React.Component {
   }
 
   handleUp = () => {
-    console.log("We are going up");
+    // console.log("We are going up");
     if (this.state.coordinateY === 1) {
       this.setState({
         message: "You can't go up"
@@ -28,7 +28,7 @@ export default class AppClass extends React.Component {
   }
 
   handleDown = () => {
-    console.log("We are going down");
+    // console.log("We are going down");
     if (this.state.coordinateY === 3) {
       this.setState({
         message: "You can't go down"
@@ -43,7 +43,7 @@ export default class AppClass extends React.Component {
   }
 
   handleRight = () => {
-    console.log("We are going right");
+    // console.log("We are going right");
     if (this.state.coordinateX === 3) {
       this.setState({
         message: "You can't go right"
@@ -58,7 +58,7 @@ export default class AppClass extends React.Component {
   }
 
   handleLeft = () => {
-    console.log("We are going left");
+    // console.log("We are going left");
     if (this.state.coordinateX === 1) {
       this.setState({
         message: "You can't go left"
@@ -122,7 +122,7 @@ export default class AppClass extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log("We are sane");
+    // console.log("We are sane");
     const payload = {
       "x": this.state.coordinateX,
       "y": this.state.coordinateY,
@@ -131,7 +131,7 @@ export default class AppClass extends React.Component {
     };
     axios.post('http://localhost:9000/api/result', payload)
       .then(res => {
-        console.log("Then catch");
+        // console.log("Then catch");
         this.setState({
           ...this.state,
           message: res.data.message,
@@ -139,7 +139,7 @@ export default class AppClass extends React.Component {
         })
       })
       .catch(err => {
-        console.log("Error catch");
+        // console.log("Error catch");
         this.setState({
           ...this.state,
           message: err.response.data.message,
@@ -198,7 +198,7 @@ export default class AppClass extends React.Component {
             onChange={this.emailChangeHandler}
             >
           </input>
-          <input id="submit" type="submit"></input>
+          <input id="submit" data-testid="submit" type="submit"></input>
         </form>
       </div>
     )
